@@ -5,7 +5,7 @@
 
 domain_name="yours.com"
 sub_domain="test"
-api_key="dfdfff3333333"
+api_key="37871giolknf47170aws1"
 
 # define domain_name and temp xml file
 domain_xml="/tmp/namesilo_domain_list.xml"
@@ -44,13 +44,14 @@ dns_list_url="https://www.namesilo.com/api/dnsListRecords?version=1&type=xml&key
 curl -s "$dns_list_url" > $domain_xml
 #cat $domain_name.xml
 
-# split xml file into bash readable txt format
+# split xml file into bash readable format
 read_dom ()
 {
     local IFS=\>
     read -d \< ENTITY CONTENT
 }
 
+# get domain ip, domain record id from xml
 while read_dom; do
 
     if [[ $ENTITY = "record_id" ]]; then
@@ -71,7 +72,7 @@ done < $domain_xml
 
 # get history ip address
 history_ip=$host_ip
-#echo "$current_ip $history_ip"
+# echo "$current_ip $history_ip"
 
 # update records
 # https://www.namesilo.com/api_reference.php#dnsUpdateRecord
@@ -85,6 +86,6 @@ elif [[ $(curl -s "$dns_update_url" | grep -c "success") > 0 ]]; then
     echo $current_ip > $domain_txt 
     echo "$(date): My public IP changed to $current_ip!" >> $log_path
 else
-    echo "update failed"
+    echo "update failed and please check your configuration"
 fi
 exit 0
