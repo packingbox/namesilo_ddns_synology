@@ -8,8 +8,8 @@ sub_domain="test"
 api_key="dfdfff3333333"
 
 # define domain_name and temp xml file
-domain_xml="/tmp/namesilo_response.xml"
-domain_txt="/tmp/namesilo_response.txt"
+domain_xml="/tmp/namesilo_domain_list.xml"
+domain_txt="/tmp/namesilo_last_ip.txt"
 log_path="/tmp/namesilo_ip_update.log"
 
 # combine domain name
