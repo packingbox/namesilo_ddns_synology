@@ -1,5 +1,5 @@
 # namesilo_ddns_synology
-update the namesilo domain name at synology devices with simple bash, no need to install other plugins.
+update the namesilo domain name at synology devices with only bash, no need to install other plugins.
 ## How to use:
 * Download and save the bash script to your synology device.
 * Get your APIKEY from Namesilo control panel, https://www.namesilo.com/account_api.php
