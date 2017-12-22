@@ -24,7 +24,7 @@ check_ip=http://api.ipify.org
 current_ip=$(curl -s $check_ip)
 if [[ "$current_ip" = "$(cat $domain_txt)" ]]; then
     echo "same public ip and wait for next check"
-    exit
+    exit $?
 else
     echo "public ip changed and start the update"
 fi
@@ -80,12 +80,16 @@ dns_update_url="https://www.namesilo.com/api/dnsUpdateRecord?version=1&type=xml&
 #echo $dns_update_url
 
 if [[ $current_ip = $history_ip ]]; then
-    echo "same domain ip record, no need to update"
+    echo $current_ip > $domain_txt  
+    echo "$(date): same domain ip record, no need to update" >> $log_path
+    
 elif [[ $(curl -s "$dns_update_url" | grep -c "success") > 0 ]]; then
-    echo "domain ip changed and update to $current_ip"
+#    echo "domain ip changed and update to $current_ip"
     echo $current_ip > $domain_txt 
     echo "$(date): My public IP changed to $current_ip!" >> $log_path
+
 else
-    echo "update failed and please check your configuration"
+    echo "$(date): update failed" >> $log_path
+    exit 1
 fi
-exit 0
+exit $?
